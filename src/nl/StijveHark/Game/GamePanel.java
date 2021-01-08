@@ -8,7 +8,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -26,7 +25,7 @@ public class GamePanel extends JPanel {
 
     // Store Highscores in file
     // Added new class for this Highscore
-    File file = new File("/resources/highscore.dat");
+//    File file = new File("/resources/highscore.dat");
 
     private final KeyboardControl control;
     private int score = 0;
@@ -264,7 +263,7 @@ public class GamePanel extends JPanel {
         // Verify if highscore is already present
         if (highScore.getPoints() == -1){
             // init highscore
-            String oldHighscore = highScore.GetHighScore(file);
+            String oldHighscore = highScore.GetHighScore();
             if(oldHighscore.equals("0")){
                 highScore.setHighscorevalue(0);
             } else {
@@ -531,7 +530,7 @@ public class GamePanel extends JPanel {
                 setupGame();
                 if(score <= highScore.getPoints()) {
                     String name = JOptionPane.showInputDialog("You have beaten: " + user + " You set a new highscore!. What is your name?", "User");
-                    highScore.registerNewHighscore(file, name);
+                    highScore.registerNewHighscore(name);
                 }
             }
         }
@@ -546,7 +545,7 @@ public class GamePanel extends JPanel {
             // Present option to play again or exit the game
             if(score <= highScore.getPoints()) {
                 String name = JOptionPane.showInputDialog("You set a new highscore!. What is your name?", "User");
-                highScore.registerNewHighscore(file, name);
+                highScore.registerNewHighscore(name);
             }
             int response = JOptionPane.showConfirmDialog(null, "Play again?", "GAME OVER!! " + "Your score: " + score + " points", 0);
             if (response == 0) {

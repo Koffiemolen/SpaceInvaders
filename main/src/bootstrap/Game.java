@@ -1,4 +1,6 @@
-package nl.StijveHark.Game;
+package bootstrap;
+
+import nl.StijveHark.Game.GamePanel;
 
 import javax.swing.*;
 
@@ -13,7 +15,7 @@ public class Game extends JFrame {
         // Make sure the program exits when the close button is clicked
         this.setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        // Create an instance of the Game class and turn on double buffering to ensure animation
+        // Create an instance of the bootstrap.Game class and turn on double buffering to ensure animation
         game = new GamePanel();
         game.setDoubleBuffered(true);
 

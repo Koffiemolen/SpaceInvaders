@@ -233,6 +233,7 @@ public class GamePanel extends JPanel {
                 bonusAlien = new Ship(-50, 30, Color.RED, null);
                 bonusAlienList.add(bonusAlien);
                 newBonusAlien = false;
+                sounds.alienBonus();
             }
         }
 
@@ -323,6 +324,7 @@ public class GamePanel extends JPanel {
                     // TODO improve if statement if mod 3 → if % 3
                     if (level != 3 && level != 6 && level != 9 && level != 12) {
                         score += 100;
+                        sounds.hitmarker();
                         hitMarker = true;
                         // To present the marker "+100 Well done!" near the correct alien that was shot
                         // It is needed to retrieve those coordinates x and y
@@ -360,6 +362,7 @@ public class GamePanel extends JPanel {
             for (int index = 0; index < shieldList.size(); index++) {
                 if (playerWeapon.isColliding(shieldList.get(index))) {
                     // %100 health
+                    sounds.shield();
                     if (shieldList.get(index).getColor() == Color.RED) {
                         shieldList.get(index).setColor(Color.ORANGE);
                         // TODO play audio sound bunker get hit
@@ -390,7 +393,6 @@ public class GamePanel extends JPanel {
             for (int index = 0; index < bonusAlienList.size(); index++) {
                 // Todo bonus alien speed dependent on difficulty level
                 bonusAlienList.get(index).setXCoordinateValue(bonusAlienList.get(index).getXCoordinateValue() + (2));
-                // TODO replace 800 for boardwidth variable
                 if (bonusAlienList.get(index).getXCoordinateValue() > gameWidth) {
                     bonusAlienList.remove(index);
                     newBonusAlien = true;
@@ -449,6 +451,7 @@ public class GamePanel extends JPanel {
                 for (int alienBombListIndex = 0; alienBombListIndex < alienBombList.size(); alienBombListIndex++) {
                     if (alienBombList.get(alienBombListIndex).isColliding(shieldList.get(shieldListIndex))) {
                         // Full strength
+                        sounds.shield();
                         if (shieldList.get(shieldListIndex).getColor() == Color.RED) {
                             shieldList.get(shieldListIndex).setColor(Color.ORANGE);
                             // TODO play audio
@@ -479,6 +482,7 @@ public class GamePanel extends JPanel {
                 alienBombList.remove(index);
                 // TODO play tun tun tun audio
                 // Player has been hit, reduce amount of lives
+                sounds.death();
                 lifeList.remove(lifeList.size() - 1);
             }
         }
@@ -493,6 +497,7 @@ public class GamePanel extends JPanel {
             for (int shieldListIndex = 0; shieldListIndex < shieldList.size(); shieldListIndex++) {
                 if (alienList.get(alienListIndex).isColliding(shieldList.get(shieldListIndex))) {
                     shieldList.remove(shieldListIndex);
+                    sounds.shield();
                 }
             }
 
@@ -559,6 +564,7 @@ public class GamePanel extends JPanel {
             lifeList.clear();
             level += 1;
             bossHealth = 10 * level;
+            sounds.levelUp();
             setupGame();
             // TODO play victory song
         }

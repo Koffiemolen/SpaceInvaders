@@ -1,7 +1,5 @@
 package bootstrap;
 
-import logic.factories.GamePanel;
-
 import javax.swing.*;
 
 public class Game extends JFrame {

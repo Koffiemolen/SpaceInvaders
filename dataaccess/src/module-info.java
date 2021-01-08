@@ -1,3 +1,0 @@
-module dataaccess {
-    exports providers;
-}

@@ -1,8 +1,8 @@
-package logic.factories;
+package bootstrap;
 
+import data.providers.HighscoreStore;
 import devices.KeyboardControl;
 import logic.entities.*;
-import providers.Highscore;
 import sound.SoundFactory;
 
 import javax.swing.*;
@@ -42,7 +42,7 @@ public class GamePanel extends JPanel {
     private AlienBomb alienBomb;
     private AlienBomb alienBomb2;
     private AlienBomb alienBomb3;
-    private Highscore highScore = new Highscore();
+    private HighscoreStore highScore = new HighscoreStore();
 
     // Booleans to keep track of certain values
     private boolean playerCanFire = true;
@@ -89,7 +89,7 @@ public class GamePanel extends JPanel {
         // Formula for boss levels
         if (level == 3 || level == 6 || level == 9 || level == 12) {
             sounds.alienBoss();
-            alien = new Alien(20, 20, 3, 0, 100, null, 150, 150);
+            alien = new Alien(20, 20, 3, 0, 100, null, 150, 150,bossHealth);
             alienList.add(alien);
         }
 
@@ -215,7 +215,6 @@ public class GamePanel extends JPanel {
                         alienBombList.add(alienBomb);
                         alienBombList.add(alienBomb2);
                         alienBombList.add(alienBomb3);
-                        //AudioPlayer.player.start(beamSoundAudio); // Plays beam sound for boss
                         sounds.alienBoss();
                     }
                     alienCanFire = false;
@@ -262,7 +261,7 @@ public class GamePanel extends JPanel {
             // init highscore
             String oldHighscore = highScore.GetHighScore();
             if(oldHighscore.equals("0")){
-                highScore.setHighscorevalue(0);
+                highScore.setHighscoreValue(0);
             } else {
                 // Setting highscore from file to highscore
                 user = oldHighscore.split(":")[0];
@@ -273,7 +272,7 @@ public class GamePanel extends JPanel {
 
         // Create highscore display
         graphics.setColor(Color.WHITE);
-        graphics.drawString("Highscore: " + highScore.getPoints(), 440, 20);
+        graphics.drawString("HighscoreStore: " + highScore.getPoints(), 440, 20);
 
         // Create display health of boss
         // TODO use modules as evaluation
@@ -289,22 +288,6 @@ public class GamePanel extends JPanel {
 
         // Allow player to move
         playerShip.move();
-
-//        // Option to reset HighScore
-//        if (control.getKeyStatus(82)) {
-//            int response = JOptionPane.showConfirmDialog(null, "Would you like to reset the high score?", "To be or not to be ...", 0);
-//            control.resetController();
-//            if (response == 0) {
-//                try {
-//                    String highScoreString = Integer.toString(0);
-//                    PrintWriter toFile = new PrintWriter(new FileOutputStream(file, false));
-//                    toFile.write(highScoreString);
-//                    toFile.close();
-//                } catch (FileNotFoundException exception) {
-//
-//                }
-//            }
-//        }
 
         // When aliens reach the end of the board they need to change direction
         if ((alienList.get(alienList.size() - 1).getXCoordinateValue() + alienList.get(alienList.size() - 1).getVelocityX()) > 760 || (alienList.get(0).getXCoordinateValue() + alienList.get(0).getVelocityX()) < 0) {
@@ -335,7 +318,7 @@ public class GamePanel extends JPanel {
                     sounds.explosion();
                     playerWeapon = new PlayerWeapon(0, 0, 0, null);
                     playerCanFire = true;
-                    highScore.setHighscorevalue(score);
+                    highScore.setHighscoreValue(score);
                     // When alien is hit score needs to be updated
                     // TODO improve if statement if mod 3 → if % 3
                     if (level != 3 && level != 6 && level != 9 && level != 12) {
@@ -347,7 +330,7 @@ public class GamePanel extends JPanel {
                         hitmarkerY = alienList.get(index).getYCoordinateValue();
                         // After the marker has shown alien can be removed
                         alienList.remove(index);
-                        highScore.setHighscorevalue(score);
+                        highScore.setHighscoreValue(score);
                     }
 
                     //347 When alien bos is hit the hit score needs to be updated
@@ -358,12 +341,13 @@ public class GamePanel extends JPanel {
                         hitmarkerX = alienList.get(index).getXCoordinateValue();
                         hitmarkerY = alienList.get(index).getYCoordinateValue() + 165;
                         bossHealth -= 1;
+                        alienList.get(index).setAlienHealth(alienList.get(index).getAlienHealth() -1);
                         // check if alien boss health 0 → alien boss is dead
                         if (bossHealth == 0) {
                             alienList.remove(index);
                             // Special bonus for defeating alien boss
                             score += 9000;
-                            highScore.setHighscorevalue(score);
+                            highScore.setHighscoreValue(score);
                         }
                     }
                 }
@@ -423,7 +407,7 @@ public class GamePanel extends JPanel {
                         // TODO play sound bonus alien hit
                         // When bonus alien is hit extra points
                         score += 5000;
-                        highScore.setHighscorevalue(score);
+                        highScore.setHighscoreValue(score);
                     }
                 }
             }

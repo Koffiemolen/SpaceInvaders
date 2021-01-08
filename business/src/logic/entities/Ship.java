@@ -42,10 +42,10 @@ public class Ship extends ControlledGameObject{
     // move ship objects
     @Override
     public void move() {
-        if(control.getKeyStatus(37)){
+        if(getControl().getKeyStatus(37)){
             this.setXCoordinateValue(this.getXCoordinateValue() - 10);
         }
-        if(control.getKeyStatus(39)){
+        if(getControl().getKeyStatus(39)){
             this.setXCoordinateValue(this.getXCoordinateValue() + 10);
         }
 

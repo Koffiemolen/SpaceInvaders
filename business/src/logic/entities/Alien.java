@@ -1,7 +1,5 @@
 package logic.entities;
 
-import logic.factories.GamePanel;
-
 import javax.swing.*;
 import java.awt.*;
 
@@ -17,12 +15,22 @@ public class Alien extends MovingGameObject{
     private int alienType;
     private int alienWidth;
     private int alienHeight;
+    private int alienHealth;
 
     public Alien(int xValue, int yValue, int velocityX, int velocityY, int alienType, Color color, int alienWidth, int alienHeight) {
         super(xValue, yValue, velocityX, velocityY, color);
         this.alienType = alienType;
         this.alienWidth = alienWidth;
         this.alienHeight = alienHeight;
+        this.alienHealth = 1;
+    }
+
+    public Alien(int xValue, int yValue, int velocityX, int velocityY, int alienType, Color color, int alienWidth, int alienHeight, int alienHealth) {
+        super(xValue, yValue, velocityX, velocityY, color);
+        this.alienType = alienType;
+        this.alienWidth = alienWidth;
+        this.alienHeight = alienHeight;
+        this.alienHealth = alienHealth;
     }
 
     public void draw(Graphics g) {
@@ -38,13 +46,13 @@ public class Alien extends MovingGameObject{
             // Boss Enemy
         } if (this.alienType == 100)
         {
-            if(GamePanel.getHealthAlienBoss() > 20){
+            if(alienHealth > 20){
                 alienBoss.paintIcon(null, g, this.getXCoordinateValue(), this.getYCoordinateValue());
             }
-            else if(GamePanel.getHealthAlienBoss() > 10){
+            else if(alienHealth > 10){
                 alienBoss2.paintIcon(null, g, this.getXCoordinateValue(), this.getYCoordinateValue());
             }
-            else if(GamePanel.getHealthAlienBoss() > 0){
+            else if(alienHealth > 0){
                 alienBoss3.paintIcon(null, g, this.getXCoordinateValue(), this.getYCoordinateValue());
             }
         }
@@ -71,6 +79,14 @@ public class Alien extends MovingGameObject{
 
     public int getAlienHeight() {
         return alienHeight;
+    }
+
+    public int getAlienHealth() {
+        return alienHealth;
+    }
+
+    public void setAlienHealth(int alienHealth) {
+        this.alienHealth = alienHealth;
     }
 }
 

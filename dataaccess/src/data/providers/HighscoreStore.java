@@ -1,39 +1,46 @@
-package providers;
+package data.providers;
+
+import dataprovider.interfaces.HighscoreProvider;
 
 import java.io.*;
 
-public class Highscore {
+public class HighscoreStore implements HighscoreProvider {
     private String name;
     private int points;
 
-    public Highscore(String name, int points) {
+    public HighscoreStore(String name, int points) {
         this.name = name;
         this.points = points;
     }
 
-    public Highscore() {
+    public HighscoreStore() {
         this.name = null;
         this.points = -1;
     }
+
+    @Override
     public String getName() {
         return name;
     }
 
+    @Override
     public int getPoints() {
         return points;
     }
 
+    @Override
     public void setPoints(int points) {
         this.points = points;
     }
 
-    public void setHighscorevalue(int score) {
+    @Override
+    public void setHighscoreValue(int score) {
         if (score > this.getPoints()) {
             this.points = score;
         }
     }
 
-
+    @Override
     public void registerNewHighscore(File file, String name){
         String toFile;
         toFile = name + ":" + this.points;
@@ -65,6 +72,7 @@ public class Highscore {
         }
     }
 
+    @Override
     public void registerNewHighscore(String name){
         final File file = new File("highscore.dat");
         String toFile;
@@ -97,6 +105,7 @@ public class Highscore {
         }
     }
 
+    @Override
     public String GetHighScore(File file){
         // format: <user>:<score>
         // format: Bigfoot:125320
@@ -120,6 +129,7 @@ public class Highscore {
         }
     }
 
+    @Override
     public String GetHighScore(){
         final File file = new File("highscore.dat");
         // format: <user>:<score>

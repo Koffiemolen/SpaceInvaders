@@ -18,12 +18,12 @@ public class Ship extends ControlledGameObject{
 
     // Bonus enemy ship
     public void bonusDraw(Graphics graphics){
-        bonusAlien.paintIcon(null, graphics, this.getXCoordinateValue(), getYCoordinateValue());
+        bonusAlien.paintIcon(null, graphics, this.getXCoordinateValue(), this.getYCoordinateValue());
     }
 
     // Draw ships for lice counter
     public void lifeCounter(Graphics graphics){
-        lifeCounter.paintIcon(null, graphics, this.getXCoordinateValue(), this.yCoordinateValue);
+        lifeCounter.paintIcon(null, graphics, this.getXCoordinateValue(), this.getYCoordinateValue());
     }
 
     // Player controlled ship
@@ -43,18 +43,18 @@ public class Ship extends ControlledGameObject{
     @Override
     public void move() {
         if(control.getKeyStatus(37)){
-            xCoordinateValue -= 10;
+            this.setXCoordinateValue(this.getXCoordinateValue() - 10);
         }
         if(control.getKeyStatus(39)){
-            xCoordinateValue += 10;
+            this.setXCoordinateValue(this.getXCoordinateValue() + 10);
         }
 
         // Edge to edge without stopping
-        if(xCoordinateValue > 800){
-            xCoordinateValue = -50;
+        if(this.getXCoordinateValue() > 750){
+            this.setXCoordinateValue(-50);
         }
-        if(xCoordinateValue < -50){
-            xCoordinateValue = 800;
+        if(this.getXCoordinateValue() < -50){
+            this.setXCoordinateValue(750);
         }
     }
 }

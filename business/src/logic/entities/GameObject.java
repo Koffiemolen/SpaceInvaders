@@ -7,9 +7,9 @@ import java.awt.*;
 // A game object that will be drawn on the board.
 // Therefore it needs to implement the interface Drawable
 public abstract class GameObject implements Drawable {
-    int xCoordinateValue;
-    int yCoordinateValue;
-    Color color;
+    private int xCoordinateValue;
+    private int yCoordinateValue;
+    private Color color;
     private boolean isCollided; // isCollided or hasCollided? Which moment in time is used to check if 2 objects touch each other
 
     public GameObject(){};

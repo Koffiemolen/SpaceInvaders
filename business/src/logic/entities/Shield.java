@@ -31,7 +31,7 @@ public class Shield extends GameObject{
 
     @Override
     public void draw(Graphics graphics){
-        graphics.setColor(color);
+        graphics.setColor(getColor());
         graphics.fillRect(this.getXCoordinateValue(), this.getYCoordinateValue(), 90, 10);
     }
 

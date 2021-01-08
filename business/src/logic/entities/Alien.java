@@ -58,7 +58,7 @@ public class Alien extends MovingGameObject{
 
     @Override
     public void move(){
-        xCoordinateValue += getVelocityX();
+        this.setXCoordinateValue(this.getXCoordinateValue() + getVelocityX());
     }
 
     public int getAlienType() {

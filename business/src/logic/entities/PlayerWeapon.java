@@ -5,8 +5,8 @@ import java.awt.*;
 public class PlayerWeapon extends MovingGameObject {
 
     // In future release player can get different weapons
-    int projectileDiameter;
-    int velocityY;
+    private int projectileDiameter;
+    private int velocityY;
 
     // Constructor for projectile
 
@@ -22,13 +22,13 @@ public class PlayerWeapon extends MovingGameObject {
 
     // Draw the projectile
     public void draw(Graphics graphics){
-        graphics.setColor(color);
+        graphics.setColor(getColor());
         graphics.fillRect(this.getXCoordinateValue(), this.getYCoordinateValue(),7, 15);
     }
 
     @Override
     public Rectangle getBounds(){
-        Rectangle projectileHitRectangle = new Rectangle(xCoordinateValue, yCoordinateValue, 7, 15);
+        Rectangle projectileHitRectangle = new Rectangle(this.getXCoordinateValue(), this.getYCoordinateValue(), 7, 15);
         return projectileHitRectangle;
     }
 }

@@ -15,14 +15,14 @@ public class AlienBomb extends MovingGameObject{
     // Draw the alien bomb
     @Override
     public void draw(Graphics graphics){
-        graphics.setColor(color);
+        graphics.setColor(this.getColor());
         graphics.fillRect(this.getXCoordinateValue(), this.getYCoordinateValue(), 7, 15);
     }
 
     // Get hitbox for the alien bomb
     @Override
     public Rectangle getBounds(){
-        Rectangle alienBombHitRectangle = new Rectangle(xCoordinateValue, yCoordinateValue, 7, 15);
+        Rectangle alienBombHitRectangle = new Rectangle(getXCoordinateValue(), getYCoordinateValue(), 7, 15);
         return alienBombHitRectangle;
     }
 }

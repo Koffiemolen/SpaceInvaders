@@ -24,10 +24,6 @@ public class GamePanel extends JPanel {
 
     Random random = new Random();
 
-    // Store Highscores in file
-    // Added new class for this Highscore
-//    File file = new File("/resources/highscore.dat");
-
     private final KeyboardControl control;
     private int score = 0;
     private int level = 1;

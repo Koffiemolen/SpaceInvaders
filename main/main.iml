@@ -8,5 +8,6 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="SpaceInvaders_Code" />
+    <orderEntry type="module" module-name="business" />
   </component>
 </module>

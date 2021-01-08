@@ -1,6 +1,7 @@
-package nl.StijveHark.Game;
+package logic.factories;
 
 import devices.KeyboardControl;
+import logic.entities.*;
 import providers.Highscore;
 import sound.SoundFactory;
 
@@ -536,7 +537,7 @@ public class GamePanel extends JPanel {
         }
 
         // Update life counter on display
-        if (playerShip.isCollided) {
+        if (playerShip.isCollided()) {
             int index = lifeList.size() - 1;
             lifeList.remove(index);
         } else if (lifeList.isEmpty()) {

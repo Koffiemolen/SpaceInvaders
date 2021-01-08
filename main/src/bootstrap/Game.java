@@ -1,6 +1,6 @@
 package bootstrap;
 
-import nl.StijveHark.Game.GamePanel;
+import logic.factories.GamePanel;
 
 import javax.swing.*;
 

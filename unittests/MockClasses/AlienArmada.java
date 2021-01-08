@@ -1,6 +1,8 @@
 package MockClasses;
 
-import nl.StijveHark.Game.MovingGameObject;
+
+import logic.entities.MovingGameObject;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;

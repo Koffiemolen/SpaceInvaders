@@ -12,5 +12,6 @@
     <orderEntry type="module" module-name="audio" exported="" />
     <orderEntry type="library" exported="" name="JUnit5.4" level="project" />
     <orderEntry type="module" module-name="dataaccess" exported="" />
+    <orderEntry type="module" module-name="business" scope="TEST" />
   </component>
 </module>

@@ -1,8 +1,10 @@
-package nl.StijveHark.Game;
+package logic.entities;
+
+import logic.interfaces.Moveable;
 
 import java.awt.*;
 
-public abstract class MovingGameObject extends GameObject implements Moveable{
+public abstract class MovingGameObject extends GameObject implements Moveable {
 
     private int velocityX;
     private int velocityY;

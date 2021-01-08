@@ -1,7 +1,7 @@
 package MockClasses;
 
-import nl.StijveHark.Game.GamePanel;
-import nl.StijveHark.Game.MovingGameObject;
+import logic.entities.MovingGameObject;
+import logic.factories.GamePanel;
 
 import javax.swing.*;
 import java.awt.*;

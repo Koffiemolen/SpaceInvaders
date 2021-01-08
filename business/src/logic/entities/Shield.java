@@ -1,4 +1,4 @@
-package nl.StijveHark.Game;
+package logic.entities;
 
 import java.awt.*;
 

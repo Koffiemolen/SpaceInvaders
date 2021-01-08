@@ -1,4 +1,6 @@
-package nl.StijveHark.Game;
+package logic.entities;
+
+import logic.factories.GamePanel;
 
 import javax.swing.*;
 import java.awt.*;

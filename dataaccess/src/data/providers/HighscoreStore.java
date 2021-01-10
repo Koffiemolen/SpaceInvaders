@@ -42,7 +42,7 @@ public class HighscoreStore implements HighscoreProvider {
 
     @Override
     public void registerNewHighscore(File file, String name){
-        String toFile = name + ":" + this.points;
+        String toFile = name.replaceAll("[^A-Za-z0-9 ]", "") + ":" + this.points;
 
         if(!file.exists()){
             try {
@@ -74,7 +74,7 @@ public class HighscoreStore implements HighscoreProvider {
     @Override
     public void registerNewHighscore(String name){
         final File file = new File("highscore.dat");
-        String toFile = name + ":" + this.points;
+        String toFile = name.replaceAll("[^A-Za-z0-9 ]", "") + ":" + this.points;
 
         if(!file.exists()){
             try {
@@ -114,7 +114,7 @@ public class HighscoreStore implements HighscoreProvider {
             reader = new BufferedReader(readFile);
             return reader.readLine();
         } catch (Exception exception) {
-            // file does not exist or inaccessable
+            // file does not exist or inaccessible
             return "0";
         } finally {
             try {
@@ -139,7 +139,7 @@ public class HighscoreStore implements HighscoreProvider {
             reader = new BufferedReader(readFile);
             return reader.readLine();
         } catch (Exception exception) {
-            // file does not exist or inaccessable
+            // file does not exist or inaccessible
             return "0";
         } finally {
             try {

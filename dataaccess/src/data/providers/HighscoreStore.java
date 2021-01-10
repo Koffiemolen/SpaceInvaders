@@ -28,6 +28,22 @@ public class HighscoreStore implements HighscoreProvider {
         }
     }
 
+    public HighscoreStore(File file) {
+        // Verify if highscore.dat is already present
+        if (this.points == 0){ // Hasn't been initialized
+            // init highscore
+            String oldHighscore = GetHighScore(file);
+            if(oldHighscore.equals("0")){
+                setHighscoreValue(0);
+            } else {
+                // Setting highscore from file to highscore
+                this.name = oldHighscore.split(":")[0];
+                setPoints(Integer.parseInt(oldHighscore.split(":")[1]));
+            }
+        }
+    }
+
+
     @Override
     public String getName() {
         return name;
@@ -51,8 +67,8 @@ public class HighscoreStore implements HighscoreProvider {
     }
 
     @Override
-    public void registerNewHighscore(File file, String name){
-        String toFile = name.replaceAll("[^A-Za-z0-9 ]", "") + ":" + this.points;
+    public void registerNewHighscore(File file, String name, int score){
+        String toFile = name.replaceAll("[^A-Za-z0-9 ]", "") + ":" + score;
 
         if(!file.exists()){
             try {
@@ -82,7 +98,7 @@ public class HighscoreStore implements HighscoreProvider {
     }
 
     @Override
-    public void registerNewHighscore(String name){
+    public void registerNewHighscore(String name, int score){
         final File file = new File("highscore.dat");
         // Filtering variable name and allow only aplhanumerical characters.
         // With no filtering users are able to cheat the highscore by adding : to their name and a highscore

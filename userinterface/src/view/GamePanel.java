@@ -504,7 +504,7 @@ public class GamePanel extends JPanel {
                 setupGame();
                 if(score <= highScore.getPoints()) {
                     String name = JOptionPane.showInputDialog("You have beaten: " + highScore.getName() + " You set a new highscore!. What is your name?", "User");
-                    highScore.registerNewHighscore(name);
+                    highScore.registerNewHighscore(name, score);
                 }
             }
         }
@@ -519,7 +519,7 @@ public class GamePanel extends JPanel {
             // Present option to play again or exit the game
             if(score <= highScore.getPoints()) {
                 String name = JOptionPane.showInputDialog("You have beaten: " + highScore.getName() +" You set a new highscore!. What is your name?", "User");
-                highScore.registerNewHighscore(name);
+                highScore.registerNewHighscore(name, score);
             }
             int response = JOptionPane.showConfirmDialog(null, "Play again?", "GAME OVER!! " + "Your score: " + score + " points", 0);
             if (response == 0) {

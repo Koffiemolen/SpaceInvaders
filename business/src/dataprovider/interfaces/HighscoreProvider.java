@@ -11,9 +11,9 @@ public interface HighscoreProvider {
 
     void setHighscoreValue(int score);
 
-    void registerNewHighscore(File file, String name);
+    void registerNewHighscore(File file, String name, int score);
 
-    void registerNewHighscore(String name);
+    void registerNewHighscore(String name, int score);
 
     String GetHighScore(File file);
 

@@ -42,8 +42,7 @@ public class HighscoreStore implements HighscoreProvider {
 
     @Override
     public void registerNewHighscore(File file, String name){
-        String toFile;
-        toFile = name + ":" + this.points;
+        String toFile = name + ":" + this.points;
 
         if(!file.exists()){
             try {
@@ -75,8 +74,7 @@ public class HighscoreStore implements HighscoreProvider {
     @Override
     public void registerNewHighscore(String name){
         final File file = new File("highscore.dat");
-        String toFile;
-        toFile = name + ":" + this.points;
+        String toFile = name + ":" + this.points;
 
         if(!file.exists()){
             try {

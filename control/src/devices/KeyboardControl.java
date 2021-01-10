@@ -8,7 +8,7 @@ import java.awt.event.KeyListener;
     Boolean array of size 256, which will be used to store the state of the keys on the keyboard.
  */
 
-public class KeyboardControl implements KeyListener {
+public class KeyboardControl implements KeyListener, ControlProvider {
 
     private boolean[] keyStatus;
 

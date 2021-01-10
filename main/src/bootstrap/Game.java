@@ -1,5 +1,7 @@
 package bootstrap;
 
+import view.GamePanel;
+
 import javax.swing.*;
 
 public class Game extends JFrame {

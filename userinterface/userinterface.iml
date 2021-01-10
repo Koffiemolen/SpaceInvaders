@@ -7,8 +7,9 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="module" module-name="SpaceInvaders_Code" />
+    <orderEntry type="module" module-name="audio" />
+    <orderEntry type="module" module-name="control" />
+    <orderEntry type="module" module-name="dataaccess" />
     <orderEntry type="module" module-name="business" />
-    <orderEntry type="module" module-name="userinterface" />
   </component>
 </module>

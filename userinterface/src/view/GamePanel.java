@@ -1,4 +1,4 @@
-package bootstrap;
+package view;
 
 import data.providers.HighscoreStore;
 import devices.KeyboardControl;

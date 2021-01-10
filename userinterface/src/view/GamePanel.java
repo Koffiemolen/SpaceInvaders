@@ -1,6 +1,7 @@
 package view;
 
 import data.providers.HighscoreStore;
+import dataprovider.interfaces.HighscoreProvider;
 import devices.KeyboardControl;
 import logic.entities.*;
 import sound.SoundFactory;
@@ -257,19 +258,6 @@ public class GamePanel extends JPanel {
         graphics.setColor(Color.WHITE);
         graphics.drawString("Level: " + level, 750, 20);
 
-        // Verify if highscore is already present
-        if (highScore.getPoints() == -1){
-            // init highscore
-            String oldHighscore = highScore.GetHighScore();
-            if(oldHighscore.equals("0")){
-                highScore.setHighscoreValue(0);
-            } else {
-                // Setting highscore from file to highscore
-                user = oldHighscore.split(":")[0];
-                highScore.setPoints(Integer.parseInt(oldHighscore.split(":")[1]));
-            }
-        }
-
 
         // Create highscore display
         graphics.setColor(Color.WHITE);
@@ -515,7 +503,7 @@ public class GamePanel extends JPanel {
                 // TODO play sound player looses
                 setupGame();
                 if(score <= highScore.getPoints()) {
-                    String name = JOptionPane.showInputDialog("You have beaten: " + user + " You set a new highscore!. What is your name?", "User");
+                    String name = JOptionPane.showInputDialog("You have beaten: " + highScore.getName() + " You set a new highscore!. What is your name?", "User");
                     highScore.registerNewHighscore(name);
                 }
             }
@@ -530,7 +518,7 @@ public class GamePanel extends JPanel {
             // TODO Play game over sound
             // Present option to play again or exit the game
             if(score <= highScore.getPoints()) {
-                String name = JOptionPane.showInputDialog("You set a new highscore!. What is your name?", "User");
+                String name = JOptionPane.showInputDialog("You have beaten: " + highScore.getName() +" You set a new highscore!. What is your name?", "User");
                 highScore.registerNewHighscore(name);
             }
             int response = JOptionPane.showConfirmDialog(null, "Play again?", "GAME OVER!! " + "Your score: " + score + " points", 0);

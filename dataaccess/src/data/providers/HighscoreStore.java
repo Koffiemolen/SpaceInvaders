@@ -74,6 +74,9 @@ public class HighscoreStore implements HighscoreProvider {
     @Override
     public void registerNewHighscore(String name){
         final File file = new File("highscore.dat");
+        // Filtering variable name and allow only aplhanumerical characters.
+        // With no filtering users are able to cheat the highscore by adding : to their name and a highscore
+        // Example Bertje:999999 would become Bertje:999999:1200
         String toFile = name.replaceAll("[^A-Za-z0-9 ]", "") + ":" + this.points;
 
         if(!file.exists()){

@@ -31,7 +31,6 @@ public class GamePanel extends JPanel {
     private int numberOfLives = 3;
     private int hitmarkerX;
     private int hitmarkerY;
-    private String user;
 
     // Objects
     private Ship playerShip;

@@ -1,6 +1,7 @@
 package view;
 
 import data.providers.HighscoreStore;
+import data.providers.HighscoreStoreNew;
 import dataprovider.interfaces.HighscoreProvider;
 import devices.KeyboardControl;
 import logic.entities.*;
@@ -43,6 +44,8 @@ public class GamePanel extends JPanel {
     private AlienBomb alienBomb2;
     private AlienBomb alienBomb3;
     private HighscoreStore highScore = new HighscoreStore();
+
+//    private Highscore highscore = new Highscore();
 
     // Booleans to keep track of certain values
     private boolean playerCanFire = true;
@@ -501,6 +504,7 @@ public class GamePanel extends JPanel {
                 numberOfLives -= 1;
                 // TODO play sound player looses
                 setupGame();
+//                if(score <= highScore.getPoints()) {
                 if(score <= highScore.getPoints()) {
                     String name = JOptionPane.showInputDialog("You have beaten: " + highScore.getName() + " You set a new highscore!. What is your name?", "User");
                     highScore.registerNewHighscore(name, score);

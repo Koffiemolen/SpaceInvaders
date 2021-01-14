@@ -1,12 +1,16 @@
 package data.providers;
 
 import dataprovider.interfaces.HighscoreProvider;
+import logic.entities.Highscore;
 
 import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class HighscoreStore implements HighscoreProvider {
     private String name;
     private int points;
+    private List<Highscore> highscoreList= new ArrayList<>();
 
     public HighscoreStore(String name, int points) {
         this.name = name;
@@ -28,20 +32,20 @@ public class HighscoreStore implements HighscoreProvider {
         }
     }
 
-    public HighscoreStore(File file) {
-        // Verify if highscore.dat is already present
-        if (this.points == 0){ // Hasn't been initialized
-            // init highscore
-            String oldHighscore = GetHighScore(file);
-            if(oldHighscore.equals("0")){
-                setHighscoreValue(0);
-            } else {
-                // Setting highscore from file to highscore
-                this.name = oldHighscore.split(":")[0];
-                setPoints(Integer.parseInt(oldHighscore.split(":")[1]));
-            }
-        }
-    }
+//    public HighscoreStore(File file) {
+//        // Verify if highscore.dat is already present
+//        if (this.points == 0){ // Hasn't been initialized
+//            // init highscore
+//            String oldHighscore = GetHighScore(file);
+//            if(oldHighscore.equals("0")){
+//                setHighscoreValue(0);
+//            } else {
+//                // Setting highscore from file to highscore
+//                this.name = oldHighscore.split(":")[0];
+//                setPoints(Integer.parseInt(oldHighscore.split(":")[1]));
+//            }
+//        }
+//    }
 
 
     @Override
@@ -66,36 +70,13 @@ public class HighscoreStore implements HighscoreProvider {
         }
     }
 
-    @Override
-    public void registerNewHighscore(File file, String name, int score){
-        String toFile = name.replaceAll("[^A-Za-z0-9 ]", "") + ":" + score;
-
-        if(!file.exists()){
-            try {
-                file.createNewFile();
-            } catch (IOException event){
-                event.printStackTrace();
-            }
-        }
-        FileWriter writeFile;
-        BufferedWriter writer = null;
-        try {
-            writeFile = new FileWriter(file);
-            writer = new BufferedWriter(writeFile);
-            writer.write(toFile);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        finally {
-            if(writer != null) {
-                try {
-                    writer.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
+    // List maken die alle highscore maakt
+    public List<Highscore> retrieveAllHighscore(){
+        return highscoreList;
     }
+
+    //
+
 
     @Override
     public void registerNewHighscore(String name, int score){
@@ -128,30 +109,6 @@ public class HighscoreStore implements HighscoreProvider {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-            }
-        }
-    }
-
-    @Override
-    public String GetHighScore(File file){
-        // format: <user>:<score>
-        // format: Bigfoot:125320
-        FileReader readFile;
-        BufferedReader reader = null;
-        try {
-            readFile = new FileReader(file);
-            reader = new BufferedReader(readFile);
-            return reader.readLine();
-        } catch (Exception exception) {
-            // file does not exist or inaccessible
-            return "0";
-        } finally {
-            try {
-                if(reader != null){
-                    reader.close();
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
             }
         }
     }

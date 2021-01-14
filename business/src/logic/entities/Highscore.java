@@ -5,6 +5,11 @@ public class Highscore {
     private String name;
     private int highscore;
 
+    public Highscore() {
+        this.name = "";
+        this.highscore = 0;
+    }
+
     public Highscore(String name, int score) {
         this.name = name;
         this.highscore = score;

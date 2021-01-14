@@ -32,6 +32,20 @@ public class HighscoreStore implements HighscoreProvider {
         }
     }
 
+    public HighscoreStore(Highscore highscore) {
+        // Verify if highscore.dat is already present
+        if (this.points == 0){ // Hasn't been initialized
+            // init highscore
+            String oldHighscore = GetHighScore();
+            if(oldHighscore.equals("0")){
+                setHighscoreValue(0);
+            } else {
+                // Setting highscore from file to highscore
+                this.name = oldHighscore.split(":")[0];
+                setPoints(Integer.parseInt(oldHighscore.split(":")[1]));
+            }
+        }
+    }
 //    public HighscoreStore(File file) {
 //        // Verify if highscore.dat is already present
 //        if (this.points == 0){ // Hasn't been initialized
@@ -75,7 +89,6 @@ public class HighscoreStore implements HighscoreProvider {
         return highscoreList;
     }
 
-    //
 
 
     @Override

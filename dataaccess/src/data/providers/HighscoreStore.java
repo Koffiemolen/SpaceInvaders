@@ -12,10 +12,8 @@ public class HighscoreStore implements HighscoreProvider {
     private int points;
     private List<Highscore> highscoreList= new ArrayList<>();
 
-    public HighscoreStore(String name, int points) {
-        this.name = name;
-        this.points = points;
-    }
+    private
+
 
     public HighscoreStore() {
         // Verify if highscore.dat is already present
@@ -32,7 +30,7 @@ public class HighscoreStore implements HighscoreProvider {
         }
     }
 
-    public HighscoreStore(Highscore highscore) {
+    public HighscoreStore() {
         // Verify if highscore.dat is already present
         if (this.points == 0){ // Hasn't been initialized
             // init highscore
@@ -61,28 +59,6 @@ public class HighscoreStore implements HighscoreProvider {
 //        }
 //    }
 
-
-    @Override
-    public String getName() {
-        return name;
-    }
-
-    @Override
-    public int getPoints() {
-        return points;
-    }
-
-    @Override
-    public void setPoints(int points) {
-        this.points = points;
-    }
-
-    @Override
-    public void setHighscoreValue(int score) {
-        if (score > this.getPoints()) {
-            this.points = score;
-        }
-    }
 
     // List maken die alle highscore maakt
     public List<Highscore> retrieveAllHighscore(){
@@ -151,4 +127,13 @@ public class HighscoreStore implements HighscoreProvider {
         }
     }
 
+    @Override
+    public void setAllHighScores(List<Highscore> ListHighscores) {
+
+    }
+
+    @Override
+    public List<Highscore> retrieveAllHighScores() {
+        return null;
+    }
 }

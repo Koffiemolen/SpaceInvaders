@@ -39,7 +39,7 @@ public class HighscoreStoreNew implements HighscoreProviderNew {
         // Filtering variable name and allow only aplhanumerical characters.
         // With no filtering users are able to cheat the highscore by adding : to their name and a highscore
         // Example Bertje:999999 would become Bertje:999999:1200
-        String toFile = highscore.getName().replaceAll("[^A-Za-z0-9 ]", "") + ":" + highscore.getScore();
+        String toFile = highscore.getName().replaceAll("[^A-Za-z0-9 ]", "") + ":" + highscore.getPoints();
 
         if(!file.exists()){
             try {
@@ -99,7 +99,7 @@ public class HighscoreStoreNew implements HighscoreProviderNew {
             String name = readLine.split(":")[0];
             int score = (Integer.parseInt(readLine.split(":")[1]));
             highscore.setName(name);
-            highscore.setScore(score);
+            highscore.setPoints(score);
         }
         return highscore;
     }

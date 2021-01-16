@@ -30,19 +30,25 @@ public class Highscore {
         this.name = name.replaceAll("[^A-Za-z0-9 ]", "");
     }
 
-    public int getScore() {
+    public int getPoints() {
         return highscore;
     }
 
-    public void setScore(int score) {
+    public void setPoints(int score) {
         this.highscore = score;
     }
 
-    public void setHighscoreValue(int score) {
-        if (score > this.getScore()) {
+    public boolean setHighscoreValue(int score) {
+        if (score > this.getPoints()) {
             this.highscore = score;
+            return true;
         }
+        return false;
     }
 
+    public void registerNewHighscore(String name, int score){
+        setName(name);
+        setPoints(score);
+    }
 
 }

@@ -1,12 +1,13 @@
-package view;
+package Mock;
 
 import data.providers.HighscoreStore;
+import dataprovider.interfaces.HighscoreProvider;
 import logic.entities.Highscore;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class DataAdmin {
+public class DataAdmin implements HighscoreProvider {
     ArrayList<Highscore> highscore = new ArrayList<>();
     private HighscoreStore highscoreStore;
 
@@ -17,4 +18,15 @@ public class DataAdmin {
     public List<Highscore> retrieveAllHighscores(){
         return  highscoreStore.retrieveAllHighscore();
     }
+
+    @Override
+    public void setAllHighScores(List<Highscore> ListHighscores) {
+
+    }
+
+    @Override
+    public List<Highscore> retrieveAllHighScores() {
+        return null;
+    }
+
 }

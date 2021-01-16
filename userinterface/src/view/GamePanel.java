@@ -5,6 +5,7 @@ import data.providers.HighscoreStoreNew;
 import dataprovider.interfaces.HighscoreProvider;
 import devices.KeyboardControl;
 import logic.entities.*;
+import org.w3c.dom.ls.LSOutput;
 import sound.SoundFactory;
 
 import javax.swing.*;
@@ -43,9 +44,13 @@ public class GamePanel extends JPanel {
     private AlienBomb alienBomb;
     private AlienBomb alienBomb2;
     private AlienBomb alienBomb3;
-    private HighscoreStore highScore = new HighscoreStore();
+    private Highscore highScore = new Highscore();
+    // interface as parameter
+    private ScoreManager scoremanager = new ScoreManager(new HighscoreStore() );
 
-//    private Highscore highscore = new Highscore();
+//    private ScoreManager scoremanager = new ScoreManager(new HighscoreStore() );
+
+    //    private Highscore highscore = new Highscore();
 
     // Booleans to keep track of certain values
     private boolean playerCanFire = true;
@@ -508,6 +513,8 @@ public class GamePanel extends JPanel {
                 if(score <= highScore.getPoints()) {
                     String name = JOptionPane.showInputDialog("You have beaten: " + highScore.getName() + " You set a new highscore!. What is your name?", "User");
                     highScore.registerNewHighscore(name, score);
+                    // TODO call highscore.registerHighscore
+                    // manager
                 }
             }
         }

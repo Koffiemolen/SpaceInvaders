@@ -6,88 +6,28 @@ import logic.entities.Highscore;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class HighscoreStore implements HighscoreProvider {
-    private String name;
-    private int points;
     private List<Highscore> highscoreList= new ArrayList<>();
-
-    private
-
+    private final File file = new File("highscore.dat");
 
     public HighscoreStore() {
-        // Verify if highscore.dat is already present
-        if (this.points == 0){ // Hasn't been initialized
-            // init highscore
-            String oldHighscore = GetHighScore();
-            if(oldHighscore.equals("0")){
-                setHighscoreValue(0);
-            } else {
-                // Setting highscore from file to highscore
-                this.name = oldHighscore.split(":")[0];
-                setPoints(Integer.parseInt(oldHighscore.split(":")[1]));
-            }
-        }
+        checkIfHighscoreFileIsPresent();
     }
-
-    public HighscoreStore() {
-        // Verify if highscore.dat is already present
-        if (this.points == 0){ // Hasn't been initialized
-            // init highscore
-            String oldHighscore = GetHighScore();
-            if(oldHighscore.equals("0")){
-                setHighscoreValue(0);
-            } else {
-                // Setting highscore from file to highscore
-                this.name = oldHighscore.split(":")[0];
-                setPoints(Integer.parseInt(oldHighscore.split(":")[1]));
-            }
-        }
-    }
-//    public HighscoreStore(File file) {
-//        // Verify if highscore.dat is already present
-//        if (this.points == 0){ // Hasn't been initialized
-//            // init highscore
-//            String oldHighscore = GetHighScore(file);
-//            if(oldHighscore.equals("0")){
-//                setHighscoreValue(0);
-//            } else {
-//                // Setting highscore from file to highscore
-//                this.name = oldHighscore.split(":")[0];
-//                setPoints(Integer.parseInt(oldHighscore.split(":")[1]));
-//            }
-//        }
-//    }
-
-
-    // List maken die alle highscore maakt
-    public List<Highscore> retrieveAllHighscore(){
-        return highscoreList;
-    }
-
-
 
     @Override
-    public void registerNewHighscore(String name, int score){
-        final File file = new File("highscore.dat");
-        // Filtering variable name and allow only aplhanumerical characters.
-        // With no filtering users are able to cheat the highscore by adding : to their name and a highscore
-        // Example Bertje:999999 would become Bertje:999999:1200
-        String toFile = name.replaceAll("[^A-Za-z0-9 ]", "") + ":" + this.points;
-
-        if(!file.exists()){
-            try {
-                file.createNewFile();
-            } catch (IOException event){
-                event.printStackTrace();
-            }
-        }
+    public void setAllHighScores(List<Highscore> ListHighscores) {
         FileWriter writeFile;
         BufferedWriter writer = null;
         try {
             writeFile = new FileWriter(file);
             writer = new BufferedWriter(writeFile);
-            writer.write(toFile);
+
+            for(Highscore highscore : ListHighscores) {
+                writer.write(highscore.getName() + ":" + highscore.getPoints());
+                writer.newLine();
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -102,20 +42,39 @@ public class HighscoreStore implements HighscoreProvider {
         }
     }
 
+    // return all highscores as list<Highscore>
     @Override
-    public String GetHighScore(){
-        final File file = new File("highscore.dat");
-        // format: <user>:<score>
-        // format: Bigfoot:125320
+    public List<Highscore> retrieveAllHighScores(){
+        for (String highscore : getStringsFromFile()) {
+            highscoreList.add(convertStringToHighscore(highscore));
+        }
+        return highscoreList;
+    }
+
+    private void checkIfHighscoreFileIsPresent(){
+
+        if(!file.exists()){
+            try {
+                file.createNewFile();
+            } catch (IOException event){
+                event.printStackTrace();
+            }
+        }
+    }
+
+    private List<String> getStringsFromFile(){
+        List<String> rawData = new ArrayList<>();
         FileReader readFile;
         BufferedReader reader = null;
+
         try {
             readFile = new FileReader(file);
             reader = new BufferedReader(readFile);
-            return reader.readLine();
+            rawData = reader.lines().collect(Collectors.toList());
+
         } catch (Exception exception) {
             // file does not exist or inaccessible
-            return "0";
+            return rawData;
         } finally {
             try {
                 if(reader != null){
@@ -125,15 +84,28 @@ public class HighscoreStore implements HighscoreProvider {
                 e.printStackTrace();
             }
         }
+        return rawData;
     }
 
-    @Override
-    public void setAllHighScores(List<Highscore> ListHighscores) {
+    private Highscore convertStringToHighscore(String text){
+        // format: <user>:<score>
+        // format: Bigfoot:125320
+        Highscore highscore = new Highscore();
+        if(text.contains(":")) {
+            String[] dataArray = text.split(":");
 
+            String name = dataArray[0];
+            int score = Integer.parseInt(dataArray[1]);
+
+            highscore.setName(name);
+            highscore.setPoints(score);
+        } else{
+            highscore.setName("");
+            highscore.setPoints(0);
+        }
+        return highscore;
     }
 
-    @Override
-    public List<Highscore> retrieveAllHighScores() {
-        return null;
-    }
+
+
 }

@@ -16,7 +16,7 @@ public class ScoreManager {
 
     //    highScore.registerNewHighscore(name, score);
     void setHighscore(){
-        highscoreInterface.setAllHighScores(ListHighscores);
+//        highscoreInterface.setAllHighScores(List<Highscores>);
     }
 
 }

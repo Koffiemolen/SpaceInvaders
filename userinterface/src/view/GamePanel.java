@@ -1,17 +1,16 @@
 package view;
 
 import data.providers.HighscoreStore;
-import data.providers.HighscoreStoreNew;
 import dataprovider.interfaces.HighscoreProvider;
 import devices.KeyboardControl;
 import logic.entities.*;
-import org.w3c.dom.ls.LSOutput;
 import sound.SoundFactory;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -25,7 +24,7 @@ public class GamePanel extends JPanel {
     private final int gameHeight = 800;
     private final int framesPerSecond = 120;
 
-    Random random = new Random();
+    private Random random = new Random();
 
     private final KeyboardControl control;
     private int score = 0;
@@ -44,13 +43,11 @@ public class GamePanel extends JPanel {
     private AlienBomb alienBomb;
     private AlienBomb alienBomb2;
     private AlienBomb alienBomb3;
-    private Highscore highScore = new Highscore();
+    private HighscoreStore highscorelist = new HighscoreStore();
+
     // interface as parameter
-    private ScoreManager scoremanager = new ScoreManager(new HighscoreStore() );
-
-//    private ScoreManager scoremanager = new ScoreManager(new HighscoreStore() );
-
-    //    private Highscore highscore = new Highscore();
+    private ScoreManager scoremanager = new ScoreManager(new HighscoreStore());
+//  private ScoreManager scoremanager = new ScoreManager(new HighscoreStore());
 
     // Booleans to keep track of certain values
     private boolean playerCanFire = true;
@@ -59,18 +56,19 @@ public class GamePanel extends JPanel {
     private boolean hitMarker = false;
 
     // ArrayLists
-    private final ArrayList<Ship> lifeList = new ArrayList<>();
+    private ArrayList<Ship> lifeList = new ArrayList<>();
     private ArrayList<Ship> bonusAlienList = new ArrayList<>();
-    private final ArrayList<Alien> alienList = new ArrayList<>();
+    private ArrayList<Alien> alienList = new ArrayList<>();
     private ArrayList<Shield> shieldList = new ArrayList<>();
     private ArrayList<AlienBomb> alienBombList = new ArrayList<>();
-
     private ImageIcon background = new ImageIcon("images/backgroundSkin.jpg");
 
     // Audio files
-    SoundFactory sounds = new SoundFactory();
+    private SoundFactory sounds = new SoundFactory();
 
-    // Extra methods
+    // Extra
+    private List<Highscore> highscores = highscorelist.retrieveAllHighScores();
+
 
     // Alien boss
     public static int getHealthAlienBoss() {
@@ -268,7 +266,7 @@ public class GamePanel extends JPanel {
 
         // Create highscore display
         graphics.setColor(Color.WHITE);
-        graphics.drawString("HighscoreStore: " + highScore.getPoints(), 440, 20);
+        graphics.drawString("HighscoreStore: " + highscores.get(0).getPoints(), 440, 20);
 
         // Create display health of boss
         // TODO use modules as evaluation
@@ -314,7 +312,7 @@ public class GamePanel extends JPanel {
                     sounds.explosion();
                     playerWeapon = new PlayerWeapon(0, 0, 0, null);
                     playerCanFire = true;
-                    highScore.setHighscoreValue(score);
+                    highscores.get(0).setHighscoreValue(score);
                     // When alien is hit score needs to be updated
                     // TODO improve if statement if mod 3 → if % 3
                     if (level != 3 && level != 6 && level != 9 && level != 12) {
@@ -327,7 +325,7 @@ public class GamePanel extends JPanel {
                         hitmarkerY = alienList.get(index).getYCoordinateValue();
                         // After the marker has shown alien can be removed
                         alienList.remove(index);
-                        highScore.setHighscoreValue(score);
+                        highscores.get(0).setHighscoreValue(score);
                     }
 
                     //347 When alien bos is hit the hit score needs to be updated
@@ -344,7 +342,7 @@ public class GamePanel extends JPanel {
                             alienList.remove(index);
                             // Special bonus for defeating alien boss
                             score += 9000;
-                            highScore.setHighscoreValue(score);
+                            highscores.get(0).setHighscoreValue(score);
                         }
                     }
                 }
@@ -404,7 +402,7 @@ public class GamePanel extends JPanel {
                         // TODO play sound bonus alien hit
                         // When bonus alien is hit extra points
                         score += 5000;
-                        highScore.setHighscoreValue(score);
+                        highscores.get(0).setHighscoreValue(score);
                     }
                 }
             }
@@ -510,9 +508,10 @@ public class GamePanel extends JPanel {
                 // TODO play sound player looses
                 setupGame();
 //                if(score <= highScore.getPoints()) {
-                if(score <= highScore.getPoints()) {
-                    String name = JOptionPane.showInputDialog("You have beaten: " + highScore.getName() + " You set a new highscore!. What is your name?", "User");
-                    highScore.registerNewHighscore(name, score);
+                if(score <= highscores.get(0).getPoints()) {
+                    String name = JOptionPane.showInputDialog("You have beaten: " + highscores.get(0).getName() + " You set a new highscore!. What is your name?", "User");
+                    highscores.get(0).registerNewHighscore(name, score);
+                    highscorelist.setAllHighScores(highscores);
                     // TODO call highscore.registerHighscore
                     // manager
                 }
@@ -527,9 +526,10 @@ public class GamePanel extends JPanel {
             // Player is out of lives
             // TODO Play game over sound
             // Present option to play again or exit the game
-            if(score <= highScore.getPoints()) {
-                String name = JOptionPane.showInputDialog("You have beaten: " + highScore.getName() +" You set a new highscore!. What is your name?", "User");
-                highScore.registerNewHighscore(name, score);
+            if(score <= highscores.get(0).getPoints()) {
+                String name = JOptionPane.showInputDialog("You have beaten: " + highscores.get(0).getName() +" You set a new highscore!. What is your name?", "User");
+                highscores.get(0).registerNewHighscore(name, score);
+                highscorelist.setAllHighScores(highscores);
             }
             int response = JOptionPane.showConfirmDialog(null, "Play again?", "GAME OVER!! " + "Your score: " + score + " points", 0);
             if (response == 0) {

@@ -16,7 +16,7 @@ public class DataAdmin implements HighscoreProvider {
     }
 
     public List<Highscore> retrieveAllHighscores(){
-        return  highscoreStore.retrieveAllHighscore();
+        return  highscoreStore.retrieveAllHighScores();
     }
 
     @Override

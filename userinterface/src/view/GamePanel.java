@@ -45,10 +45,6 @@ public class GamePanel extends JPanel {
     private AlienBomb alienBomb3;
     private HighscoreStore highscorelist = new HighscoreStore();
 
-    // interface as parameter
-//    private ScoreManager scoremanager = new ScoreManager(new HighscoreStore());
-//  private ScoreManager scoremanager = new ScoreManager(new HighscoreStore());
-
     // Booleans to keep track of certain values
     private boolean playerCanFire = true;
     private boolean alienCanFire = true;
@@ -284,7 +280,7 @@ public class GamePanel extends JPanel {
         playerShip.move();
 
         // When aliens reach the end of the board they need to change direction
-        if ((alienList.get(alienList.size() - 1).getXCoordinateValue() + alienList.get(alienList.size() - 1).getVelocityX()) > 760 || (alienList.get(0).getXCoordinateValue() + alienList.get(0).getVelocityX()) < 0) {
+        if ((alienList.get(alienList.size() - 1).getXCoordinateValue() + alienList.get(alienList.size() - 1).getVelocityX()) > (gameWidth - alienList.get(0).getAlienWidth()) || (alienList.get(0).getXCoordinateValue() + alienList.get(0).getVelocityX()) < 0) {
             for (int index = 0; index < alienList.size(); index++) {
                 alienList.get(index).setVelocityX(alienList.get(index).getVelocityX() * -1);
                 alienList.get(index).setYCoordinateValue(alienList.get(index).getYCoordinateValue() + 10);
@@ -326,6 +322,7 @@ public class GamePanel extends JPanel {
                         // After the marker has shown alien can be removed
                         alienList.remove(index);
                         highscores.get(0).setHighscoreValue(score);
+
                     }
 
                     //347 When alien bos is hit the hit score needs to be updated

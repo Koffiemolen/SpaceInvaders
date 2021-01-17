@@ -1,4 +1,4 @@
-package Mock;
+package scratch;
 
 import data.providers.HighscoreStore;
 import dataprovider.interfaces.HighscoreProvider;

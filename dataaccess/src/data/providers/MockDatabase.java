@@ -7,21 +7,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MockDatabase implements HighscoreProvider {
-    private ArrayList<Highscore> highscores = new ArrayList<>();
+    List<Highscore> highscores = new ArrayList<>();
 
-
-    // highscores kunnen opslaan
-
-
-    // alle highscores ophalen
-
+    // Set all highscores
     @Override
     public void setAllHighScores(List<Highscore> ListHighscores) {
-
+        highscores.clear();
+        highscores = ListHighscores;
     }
 
+    // Return all highscores
     @Override
     public List<Highscore> retrieveAllHighScores() {
-        return null;
+        return highscores;
     }
 }

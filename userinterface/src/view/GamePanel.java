@@ -46,7 +46,7 @@ public class GamePanel extends JPanel {
     private HighscoreStore highscorelist = new HighscoreStore();
 
     // interface as parameter
-    private ScoreManager scoremanager = new ScoreManager(new HighscoreStore());
+//    private ScoreManager scoremanager = new ScoreManager(new HighscoreStore());
 //  private ScoreManager scoremanager = new ScoreManager(new HighscoreStore());
 
     // Booleans to keep track of certain values

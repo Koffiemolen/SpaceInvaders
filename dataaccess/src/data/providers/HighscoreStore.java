@@ -10,7 +10,9 @@ import java.util.stream.Collectors;
 
 public class HighscoreStore implements HighscoreProvider {
     private List<Highscore> highscoreList= new ArrayList<>();
-    private final File file = new File("highscore.dat");
+     private final File file = new File("highscore.dat");
+//    private final File file = new File("/data.resources/highscore.dat");
+
 
     public HighscoreStore() {
         checkIfHighscoreFileIsPresent();
@@ -25,7 +27,7 @@ public class HighscoreStore implements HighscoreProvider {
             writer = new BufferedWriter(writeFile);
 
             for(Highscore highscore : ListHighscores) {
-                writer.write(highscore.getName() + ":" + highscore.getPoints());
+                writer.write(highscore.getName().replaceAll("[^A-Za-z0-9 ]", "") + ":" + highscore.getPoints());
                 writer.newLine();
             }
         } catch (IOException e) {

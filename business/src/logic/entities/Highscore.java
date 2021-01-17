@@ -11,7 +11,7 @@ public class Highscore {
     }
 
     public Highscore(String name, int score) {
-        this.name = name;
+        this.name = name.replaceAll("[^A-Za-z0-9 ]", "");
         this.highscore = score;
     }
 
